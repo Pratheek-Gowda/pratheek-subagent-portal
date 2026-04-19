@@ -1,23 +1,30 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
-import './globals.css'
+import { 
+  ClerkProvider, 
+  SignInButton, 
+  SignedIn, 
+  SignedOut, 
+  UserButton 
+} from '@clerk/nextjs'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body style={{ fontFamily: 'sans-serif', padding: '20px' }}>
-          <header style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
+        <body>
+          <header style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', borderBottom: '1px solid #eee' }}>
             <strong>Pratheek Enterprises</strong>
-            {/* Show Login button if logged out, Profile icon if logged in */}
             <SignedOut>
               <SignInButton mode="modal" />
             </SignedOut>
             <SignedIn>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </SignedIn>
           </header>
-
-          <main style={{ marginTop: '20px' }}>
+          <main style={{ padding: '20px' }}>
             {children}
           </main>
         </body>
