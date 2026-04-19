@@ -1,15 +1,9 @@
+import { ClerkProvider } from '@clerk/nextjs'
 
-import { 
-  ClerkProvider, 
-  SignInButton, 
-  SignedIn, 
-  SignedOut, 
-  UserButton 
-} from '@clerk/nextjs'
-
-// Force Next.js to dynamically render this layout at request time.
-// This prevents the silent "exit 1" crash during Vercel's static prerendering phase.
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'Pratheek Enterprises Portal',
+  description: 'Subagent Management Portal for Vi, Airtel, and Jio',
+}
 
 export default function RootLayout({
   children,
@@ -19,19 +13,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <header style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', borderBottom: '1px solid #eee' }}>
-            <strong>Pratheek Enterprises</strong>
-            <SignedOut>
-              <SignInButton mode="modal" />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <main style={{ padding: '20px' }}>
-            {children}
-          </main>
+        <body style={{ 
+          margin: 0, 
+          fontFamily: 'system-ui, -apple-system, sans-serif', 
+          backgroundColor: '#f3f4f6', 
+          color: '#111827' 
+        }}>
+          {children}
         </body>
       </html>
     </ClerkProvider>
