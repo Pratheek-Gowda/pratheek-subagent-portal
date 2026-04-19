@@ -1,14 +1,27 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { ClerkProvider } from '@clerk/nextjs'
 
-// We use the simplest default configuration. 
-// This relies purely on Clerk's safe Edge logic and prevents Vercel crypto crashes.
-export default clerkMiddleware();
+export const metadata = {
+  title: 'Pratheek Enterprises Portal',
+  description: 'Subagent Management Portal for Vi, Airtel, and Jio',
+}
 
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
-};
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body style={{ 
+          margin: 0, 
+          fontFamily: 'system-ui, -apple-system, sans-serif', 
+          backgroundColor: '#f3f4f6', 
+          color: '#111827' 
+        }}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  )
+}
