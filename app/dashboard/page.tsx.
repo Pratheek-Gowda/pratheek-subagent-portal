@@ -1,0 +1,78 @@
+import { UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+export default async function DashboardPage() {
+  // Fetch current user on the server
+  const user = await currentUser();
+
+  // If no user, send them to the home page
+  if (!user) {
+    redirect("/");
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', color: '#111827', fontFamily: 'sans-serif' }}>
+      {/* Header */}
+      <nav style={{ 
+        backgroundColor: '#1e3a8a', 
+        color: 'white', 
+        padding: '1rem 2rem', 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ backgroundColor: 'white', color: '#1e3a8a', padding: '5px 10px', borderRadius: '4px', fontWeight: 'bold' }}>PE</div>
+          <h1 style={{ margin: 0, fontSize: '1.25rem' }}>Pratheek Enterprises</h1>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <span style={{ fontSize: '0.875rem' }}>{user.firstName} (Partner)</span>
+          <UserButton afterSignOutUrl="/" />
+        </div>
+      </nav>
+
+      <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Subagent Dashboard</h2>
+          <p style={{ color: '#4b5563' }}>Real-time activation tracking for Vi, Airtel, and Jio.</p>
+        </div>
+
+        {/* Stats Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          
+          {/* Airtel */}
+          <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', borderLeft: '5px solid #ef4444' }}>
+            <h3 style={{ margin: '0 0 0.5rem 0', color: '#ef4444', fontSize: '0.875rem', textTransform: 'uppercase' }}>Airtel Activations</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: 0 }}>0</p>
+            <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.5rem' }}>Pending reconciliation</p>
+          </div>
+
+          {/* Vi */}
+          <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', borderLeft: '5px solid #2563eb' }}>
+            <h3 style={{ margin: '0 0 0.5rem 0', color: '#2563eb', fontSize: '0.875rem', textTransform: 'uppercase' }}>Vi Activations</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: 0 }}>0</p>
+            <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.5rem' }}>Pending reconciliation</p>
+          </div>
+
+          {/* Jio */}
+          <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', borderLeft: '5px solid #fbbf24' }}>
+            <h3 style={{ margin: '0 0 0.5rem 0', color: '#b45309', fontSize: '0.875rem', textTransform: 'uppercase' }}>Jio Activations</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: 0 }}>0</p>
+            <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.5rem' }}>Pending reconciliation</p>
+          </div>
+
+        </div>
+
+        {/* Info Box */}
+        <div style={{ marginTop: '3rem', backgroundColor: '#dbeafe', padding: '1.5rem', borderRadius: '8px', color: '#1e40af', border: '1px solid #bfdbfe' }}>
+          <h4 style={{ margin: '0 0 0.5rem 0' }}>System Update</h4>
+          <p style={{ margin: 0, fontSize: '0.875rem' }}>
+            Wallet balance integration (Neon DB) is currently in development. Please continue to record your activations manually until the automated system is live.
+          </p>
+        </div>
+      </main>
+    </div>
+  );
+}
